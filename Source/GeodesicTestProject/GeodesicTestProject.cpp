@@ -29,7 +29,7 @@ private:
 
 void FGeodesicTestProject::StartupModule()
 {
-	UE_LOG(LogTemp, Warning, TEXT("StartupModule"));
+	UE_LOG(LogTemp, Warning, TEXT("FGeodesicTestProject::StartupModule"));
 
 	// 1. Implement UGeodesicTestProjectObject class in the separate file
 	// you can check how to implement UObject in engine source.
@@ -72,7 +72,7 @@ void FGeodesicTestProject::StartupModule()
 
 void FGeodesicTestProject::ShutdownModule()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ShutdownModule"));
+	UE_LOG(LogTemp, Warning, TEXT("FGeodesicTestProject::ShutdownModule"));
 
 	// 5. Release the FGeodesicTestProjectObjectSpawner
 
