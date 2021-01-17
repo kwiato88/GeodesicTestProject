@@ -1,6 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "GeodesicTestProject.h"
+#include "FGeodesicTestProjectObjectSpawner.h"
 #include "Modules/ModuleManager.h"
 
 class FGeodesicTestProject
@@ -24,7 +25,7 @@ public:
 	virtual void ShutdownModule();
 
 private:
-	// TSharedPtr<FGeodesicTestProjectObjectSpawner> GeodesicTestProjectObjectSpawner;
+	TSharedPtr<FGeodesicTestProjectObjectSpawner> GeodesicTestProjectObjectSpawner;
 };
 
 void FGeodesicTestProject::StartupModule()
@@ -69,6 +70,10 @@ void FGeodesicTestProject::StartupModule()
 	// 4. Please Initialize FGeodesicTestProjectObjectSpawner with MakeShared<FGeodesicTestProjectObjectSpawner>() template function
 	// 4.1 spawn 10 objects GeodesicTestProjectObjectSpawner->SpawnObject(10);
 	// 4.2 Serialize the properties from UObjects and store to some file GeodesicTestProjectObjectSpawner->SaveObjectsToFile("D:\Marmot\MyFile.txt");
+
+	GeodesicTestProjectObjectSpawner = MakeShared<FGeodesicTestProjectObjectSpawner>();
+	GeodesicTestProjectObjectSpawner->SpawnObject(10);
+	GeodesicTestProjectObjectSpawner->SaveObjectsToFile("C:\\Users\\pikwiatk\\GeodesicTestProjectExportFile.txt");
 }
 
 void FGeodesicTestProject::ShutdownModule()
