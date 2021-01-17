@@ -1,5 +1,6 @@
 #include "FGeodesicTestProjectObjectSpawner.h"
 #include "Containers/Array.h"
+#include "HAL/FileManager.h"
 
 namespace
 {
@@ -19,9 +20,16 @@ void Serialize(UGeodesicTestProjectObject& object, TArray<uint8>& out)
 	object.Serialize(writer);
 }
 
-void Save(const TArray<TArray<uint8>>& objects, const FString& filePath)
+void Save(TArray<TArray<uint8>>& objects, const FString& filePath)
 {
-	//TODO:
+	//https://docs.unrealengine.com/en-US/API/Runtime/Core/HAL/IFileManager/index.html
+	//does file need to exist? does is throw exceptions? how to handle errors?
+	TUniquePtr<FArchive> writer(IFileManager::Get().CreateFileWriter(*filePath));
+	if (!writer)
+		return;
+
+	for (auto& object : objects)
+		writer->Serialize(object.GetData(), object.Num());
 }
 }
 
