@@ -20,16 +20,21 @@ void Serialize(UGeodesicTestProjectObject& object, TArray<uint8>& out)
 	object.Serialize(writer);
 }
 
-void Save(TArray<TArray<uint8>>& objects, const FString& filePath)
+bool Save(TArray<TArray<uint8>>& objects, const FString& filePath)
 {
 	//https://docs.unrealengine.com/en-US/API/Runtime/Core/HAL/IFileManager/index.html
 	//does file need to exist? does is throw exceptions? how to handle errors?
 	TUniquePtr<FArchive> writer(IFileManager::Get().CreateFileWriter(*filePath));
 	if (!writer)
-		return;
+		return false;
 
 	for (auto& object : objects)
+	{
 		writer->Serialize(object.GetData(), object.Num());
+		if (writer->GetArchiveState().IsError())
+			return false;
+	}
+	return true;
 }
 }
 
@@ -64,8 +69,5 @@ int32 FGeodesicTestProjectObjectSpawner::SaveObjectsToFile(const FString& filePa
 {
 	savedFilesPaths.AddUnique(filePath);
 	TArray<TArray<uint8>> buff(SerializeObjects());
-	Save(buff, filePath);
-
-	//TODO: what should be returned?
-	return 1;
+	return Save(buff, filePath) ? 1 : 0;
 }
