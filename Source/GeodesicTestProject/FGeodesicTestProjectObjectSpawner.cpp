@@ -43,8 +43,10 @@ void FGeodesicTestProjectObjectSpawner::SpawnObject(uint32 numObjects)
 {
 	//TODO: UObjects don't need to be manually deleted, right?
 	//https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/Objects/index.html
-	objects.AddUninitialized(numObjects);
-	for (uint32 i = 0; i < numObjects; ++i)
+	//TODO: should delte objects in array or just add new to the end?
+	using Size = TArray<UGeodesicTestProjectObject*>::SizeType;
+	Size oldNumberOfObjects = objects.AddUninitialized(numObjects);
+	for (Size i = oldNumberOfObjects; i < objects.Num(); ++i)
 		objects[i] = BuildObject();
 }
 
