@@ -12,6 +12,8 @@ public:
 	int32 SaveObjectsToFile(const FString& filePath);
 
 private:
+	TArray<TArray<uint8>> SerializeObjects();
+
 	TArray<UGeodesicTestProjectObject*> objects;
 	TArray<FString> savedFilesPaths;
 };

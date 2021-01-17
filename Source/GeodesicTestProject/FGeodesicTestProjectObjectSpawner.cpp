@@ -48,15 +48,20 @@ void FGeodesicTestProjectObjectSpawner::SpawnObject(uint32 numObjects)
 		objects[i] = BuildObject();
 }
 
-int32 FGeodesicTestProjectObjectSpawner::SaveObjectsToFile(const FString& filePath)
+TArray<TArray<uint8>> FGeodesicTestProjectObjectSpawner::SerializeObjects()
 {
 	using Size = TArray<UGeodesicTestProjectObject*>::SizeType;
-
-	savedFilesPaths.AddUnique(filePath);
 	TArray<TArray<uint8>> buff;
 	buff.SetNum(objects.Num());
 	for (Size i = 0; i < objects.Num(); ++i)
 		Serialize(*objects[i], buff[i]);
+	return buff;
+}
+
+int32 FGeodesicTestProjectObjectSpawner::SaveObjectsToFile(const FString& filePath)
+{
+	savedFilesPaths.AddUnique(filePath);
+	TArray<TArray<uint8>> buff(SerializeObjects());
 	Save(buff, filePath);
 
 	//TODO: what should be returned?
