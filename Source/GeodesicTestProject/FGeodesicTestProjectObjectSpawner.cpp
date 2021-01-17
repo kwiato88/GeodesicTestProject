@@ -6,7 +6,7 @@ namespace
 {
 UGeodesicTestProjectObject* BuildObject()
 {
-	UGeodesicTestProjectObject * obj = NewObject<UGeodesicTestProjectObject>();
+	UGeodesicTestProjectObject* obj = NewObject<UGeodesicTestProjectObject>();
 	obj->text = FText::FromString("Hello Text");
 	obj->name = FName("Hello Text");
 	obj->value = 44.78;
@@ -33,6 +33,12 @@ void Save(TArray<TArray<uint8>>& objects, const FString& filePath)
 }
 }
 
+FGeodesicTestProjectObjectSpawner::~FGeodesicTestProjectObjectSpawner()
+{
+	for(const auto& path : savedFilesPaths)
+		IFileManager::Get().Delete(*path);
+}
+
 void FGeodesicTestProjectObjectSpawner::SpawnObject(uint32 numObjects)
 {
 	//TODO: UObjects don't need to be manually deleted, right?
@@ -42,10 +48,11 @@ void FGeodesicTestProjectObjectSpawner::SpawnObject(uint32 numObjects)
 		objects[i] = BuildObject();
 }
 
-int32 FGeodesicTestProjectObjectSpawner::SaveObjectsToFile(const FString& filePath) const
+int32 FGeodesicTestProjectObjectSpawner::SaveObjectsToFile(const FString& filePath)
 {
 	using Size = TArray<UGeodesicTestProjectObject*>::SizeType;
 
+	savedFilesPaths.AddUnique(filePath);
 	TArray<TArray<uint8>> buff;
 	buff.SetNum(objects.Num());
 	for (Size i = 0; i < objects.Num(); ++i)

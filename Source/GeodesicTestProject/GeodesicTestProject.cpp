@@ -81,8 +81,10 @@ void FGeodesicTestProject::ShutdownModule()
 	UE_LOG(LogTemp, Warning, TEXT("FGeodesicTestProject::ShutdownModule"));
 
 	// 5. Release the FGeodesicTestProjectObjectSpawner
-
+	
 	// 6. Please delete file on harddrive on FGeodesicTestProjectObjectSpawner Destructor
+
+	GeodesicTestProjectObjectSpawner.Reset();
 }
 
 IMPLEMENT_PRIMARY_GAME_MODULE(FGeodesicTestProject, GeodesicTestProject, "GeodesicTestProject" );
