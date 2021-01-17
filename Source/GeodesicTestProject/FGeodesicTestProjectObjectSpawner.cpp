@@ -67,5 +67,5 @@ int32 FGeodesicTestProjectObjectSpawner::SaveObjectsToFile(const FString& filePa
 	Save(buff, filePath);
 
 	//TODO: what should be returned?
-	return int32();
+	return 1;
 }
