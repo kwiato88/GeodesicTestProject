@@ -10,7 +10,5 @@ public:
 	int32 SaveObjectsToFile(const FString& filePath) const;
 
 private:
-	UGeodesicTestProjectObject* BuildObject() const;
-
 	TArray<UGeodesicTestProjectObject*> objects;
 };

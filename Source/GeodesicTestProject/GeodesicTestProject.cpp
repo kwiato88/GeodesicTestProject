@@ -35,6 +35,7 @@ void FGeodesicTestProject::StartupModule()
 	// you can check how to implement UObject in engine source.
 	// Any class which inherit from : public UObject
 	// Keep in mind the GeodesicTestProject.h file should include the GeodesicTestProject.generated.h include
+	// TODO: should it be UGeodesicTestProjectObject.h and UGeodesicTestProjectObject.generated.h ???
 
 	// 2. Add multile properites to UGeodesicTestProjectObject class, 
 	// please use UPROPERTY() macro, you can check at any class which inherit from UObject
